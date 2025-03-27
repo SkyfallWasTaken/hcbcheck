@@ -18,6 +18,7 @@ function getGitCommitLink() {
   if (formattedUrl.startsWith("git@")) {
     formattedUrl = formattedUrl.replace(":", "/").replace("git@", "https://");
   }
+  formattedUrl.replace(/x-access-token:ghs_[A-Za-z0-9]*@/g, "");
 
   return `${formattedUrl}/commit/${commitHash}`;
 }
