@@ -8,19 +8,20 @@ function getGitCommitHash() {
 }
 
 function getGitCommitLink() {
-  const repoUrl = execSync("git config --get remote.origin.url")
-    .toString()
-    .trim();
   const commitHash = getGitCommitHash();
-
-  // Convert SSH URL to HTTPS
-  let formattedUrl = repoUrl.replace(/\.git$/, "");
-  if (formattedUrl.startsWith("git@")) {
-    formattedUrl = formattedUrl.replace(":", "/").replace("git@", "https://");
-  }
-  formattedUrl.replace(/x-access-token:ghs_[A-Za-z0-9]*@/g, "");
-
-  return `${formattedUrl}/commit/${commitHash}`;
+  return `https://github.com/SkyfallWasTaken/hcb-org-checker/commit/${commitHash}`;
+  //   The code below is commented out because it's insecure and leaks GitHub access tokens.
+  //   const repoUrl = execSync("git config --get remote.origin.url")
+  //     .toString()
+  //     .trim();
+  //   const commitHash = getGitCommitHash();
+  //   // Convert SSH URL to HTTPS
+  //   let formattedUrl = repoUrl.replace(/\.git$/, "");
+  //   if (formattedUrl.startsWith("git@")) {
+  //     formattedUrl = formattedUrl.replace(":", "/").replace("git@", "https://");
+  //   }
+  //   formattedUrl.replace(/x-access-token:ghs_[A-Za-z0-9]*@/g, "");
+  //   return `${formattedUrl}/commit/${commitHash}`;
 }
 
 function getGitCommitTime() {
