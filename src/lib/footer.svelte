@@ -22,7 +22,9 @@
 
 <div class="text-gray-500 text-sm text-center mt-8 mb-4">
   <p>
-    Running on build <a href={commitUrl} class="underline">{commitHash}</a> from
-    about {commitAge}.
+    Running on build <a href={commitUrl} target="_blank" class="underline"
+      >{commitHash}</a
+    >
+    from about {commitAge}.
   </p>
 </div>
