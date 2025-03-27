@@ -10,7 +10,10 @@
     property="og:description"
     content="Quickly check if a HCB name is available for your project or organisation."
   />
-  <meta property="og:image" content="https://yourwebsite.com/og-image.png" />
+  <meta
+    property="og:image"
+    content="https://hcbcheck.skyfall.dev/hcb-icon.png"
+  />
   <meta property="og:url" content="https://hcbcheck.skyfall.dev/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="HCB Name Checker" />
