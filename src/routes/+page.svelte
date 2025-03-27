@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Debounced } from "runed";
+  import { slide } from "svelte/transition";
   let slug = $state("");
 
   const REGEX = /[^A-Za-z0-9-]/g;
@@ -46,12 +47,13 @@
 
   {#if debounced.current.trim() !== ""}
     <div
-      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm text-background {data?.valid
+      class="py-6 px-8 mb-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm text-background {data?.valid
         ? 'bg-green-500'
         : 'bg-red-500'}"
+      out:slide={{ duration: 300 }}
     >
       {#await check()}
-        <div class="flex items-center justify-center py-4">
+        <div class="flex items-center justify-center">
           <div class="animate-spin rounded-full h-10 w-10 border-b-2"></div>
           <p class="text-2xl font-semibold ml-4">Checking availability...</p>
         </div>
@@ -117,7 +119,7 @@
     </div>
   {/if}
 
-  <p class="text-center text-gray-500 mt-8 text-sm">
+  <p class="text-center text-gray-500 text-sm">
     Check if a HCB organization name is available with this checker.
   </p>
 </div>

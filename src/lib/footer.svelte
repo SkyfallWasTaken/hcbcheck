@@ -1,8 +1,5 @@
 <script lang="ts">
   import "../app.css";
-  import Footer from "$lib/footer.svelte";
-
-  let { children } = $props();
 
   const commitHash = __GIT_COMMIT_HASH__;
   const commitUrl = __GIT_COMMIT_URL__;
