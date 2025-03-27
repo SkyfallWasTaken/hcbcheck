@@ -50,7 +50,7 @@
       class="py-6 px-8 mb-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm text-background {data?.valid
         ? 'bg-green-500'
         : 'bg-red-500'}"
-      out:slide={{ duration: 300 }}
+      out:slide={{ duration: 150 }}
     >
       {#await check()}
         <div class="flex items-center justify-center">
