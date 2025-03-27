@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../app.css";
+  import Footer from "$lib/footer.svelte";
 
   let { children } = $props();
 </script>
@@ -25,6 +26,10 @@
   <title>HCB Checker</title>
 </svelte:head>
 
-<main class="flex flex-col items-center mt-16">
-  {@render children()}
-</main>
+<div class="flex flex-col min-h-screen">
+  <main class="flex flex-col items-center flex-grow mt-16">
+    {@render children()}
+  </main>
+
+  <Footer />
+</div>
