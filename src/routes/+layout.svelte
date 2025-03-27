@@ -18,6 +18,10 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="HCB Name Checker" />
   <meta property="og:locale" content="en_US" />
+  <link
+    rel="icon"
+    href={import.meta.env.DEV ? "/hcb-icon-dev.png" : "/hcb-icon.png"}
+  />
   <title>HCB Checker</title>
 </svelte:head>
 
