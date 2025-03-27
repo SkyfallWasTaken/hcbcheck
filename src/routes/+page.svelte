@@ -11,25 +11,11 @@
   let inputEl: HTMLInputElement;
 
   let data: { valid: boolean } | null = $state(null);
-  let loading = $state(false);
   async function check() {
-    loading = true;
     data = await fetch(`/api/check-slug/${debounced.current.trim()}`).then(
       (res) => res.json()
     );
-    loading = false;
   }
-
-  // let cardColor = $derived.by(() => {
-  //   // if (data?.valid) {
-  //   //   return "bg-green-500";
-  //   // } else if (loading) {
-  //   //   return "bg-gray-200";
-  //   // } else {
-  //   //   return "bg-red-500";
-  //   // }
-  //   return "bg-red-500";
-  // });
 </script>
 
 <div class="max-w-2xl mx-auto py-10 px-4">
@@ -46,7 +32,7 @@
         'lowercase'} bg-input border-border border rounded-lg py-4 px-6 text-2xl shadow-sm focus:ring-2 transition"
       bind:value={slug}
       bind:this={inputEl}
-      oninputsadas={() => (inputEl.value = inputEl.value.replace(REGEX, ""))}
+      oninput={() => (inputEl.value = inputEl.value.replace(REGEX, ""))}
     />
     {#if slug}
       <button
@@ -60,19 +46,21 @@
 
   {#if debounced.current.trim() !== ""}
     <div
-      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm"
+      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm text-background {data?.valid
+        ? 'bg-green-500'
+        : 'bg-red-500'}"
     >
       {#await check()}
         <div class="flex items-center justify-center py-4">
           <div class="animate-spin rounded-full h-10 w-10 border-b-2"></div>
-          <p class="text-xl ml-4">Checking availability...</p>
+          <p class="text-2xl font-semibold ml-4">Checking availability...</p>
         </div>
       {:then}
         <div class="text-center">
           {#if data?.valid}
             <div class="flex items-center justify-center mb-2">
               <svg
-                class="w-8 h-8 text-green-500 mr-2"
+                class="w-8 h-8 mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -88,13 +76,15 @@
                 This name is available!
               </p>
             </div>
-            <p class="text-foreground/80">
+            <p class="text-background/80">
               You can use "{debounced.current}" for your HCB organization.
             </p>
           {:else}
-            <div class="flex items-center justify-center mb-2">
+            <div
+              class="flex items-center justify-center text-foreground/90 mb-2"
+            >
               <svg
-                class="w-8 h-8 text-red-500 mr-2"
+                class="w-8 h-8 mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -106,9 +96,7 @@
                   d="M6 18L18 6M6 6l12 12"
                 ></path>
               </svg>
-              <p class="text-2xl font-semibold text-red-500">
-                This name is taken.
-              </p>
+              <p class="text-2xl font-semibold">This name is taken.</p>
             </div>
             <a
               href={`https://hcb.hackclub.com/${debounced.current}`}
