@@ -20,15 +20,16 @@
     loading = false;
   }
 
-  let cardColor = $derived.by(() => {
-    if (data?.valid) {
-      return "bg-green-500";
-    } else if (loading) {
-      return "bg-gray-200";
-    } else {
-      return "bg-red-500";
-    }
-  });
+  // let cardColor = $derived.by(() => {
+  //   // if (data?.valid) {
+  //   //   return "bg-green-500";
+  //   // } else if (loading) {
+  //   //   return "bg-gray-200";
+  //   // } else {
+  //   //   return "bg-red-500";
+  //   // }
+  //   return "bg-red-500";
+  // });
 </script>
 
 <div class="max-w-2xl mx-auto py-10 px-4">
@@ -45,7 +46,7 @@
         'lowercase'} bg-input border-border border rounded-lg py-4 px-6 text-2xl shadow-sm focus:ring-2 transition"
       bind:value={slug}
       bind:this={inputEl}
-      oninput={() => (inputEl.value = inputEl.value.replace(REGEX, ""))}
+      oninputsadas={() => (inputEl.value = inputEl.value.replace(REGEX, ""))}
     />
     {#if slug}
       <button
@@ -59,7 +60,7 @@
 
   {#if debounced.current.trim() !== ""}
     <div
-      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm {cardColor}"
+      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm"
     >
       {#await check()}
         <div class="flex items-center justify-center py-4">
