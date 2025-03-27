@@ -1,7 +1,14 @@
 <script lang="ts">
   import { Debounced } from "runed";
   let slug = $state("");
-  const debounced = new Debounced(() => slug.toLowerCase(), 500);
+
+  const REGEX = /[^A-Za-z0-9-]/g;
+  const debounced = new Debounced(
+    () => slug.toLowerCase().replace(REGEX, ""),
+    500
+  );
+
+  let inputEl: HTMLInputElement;
 </script>
 
 <div class="max-w-2xl mx-auto py-10 px-4">
@@ -17,6 +24,8 @@
       class="w-full {slug !== '' &&
         'lowercase'} bg-input border-border border rounded-lg py-4 px-6 text-2xl shadow-sm focus:ring-2 transition"
       bind:value={slug}
+      bind:this={inputEl}
+      oninput={() => (inputEl.value = inputEl.value.replace(REGEX, ""))}
     />
     {#if slug}
       <button
