@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Debounced } from "runed";
   let slug = $state("");
-  const debounced = new Debounced(() => slug, 500);
+  const debounced = new Debounced(() => slug.toLowerCase(), 500);
 </script>
 
 <div class="max-w-2xl mx-auto py-10 px-4">
@@ -12,8 +12,10 @@
   <div class="relative mb-8">
     <input
       type="text"
+      pattern="^[a-z0-9\-_]+$"
       placeholder="Enter org name"
-      class="w-full bg-input border-border border rounded-lg py-4 px-6 text-2xl shadow-sm focus:ring-2 focus:ring-ctp-rosewater focus:border-ctp-rosewater transition"
+      class="w-full {slug !== '' &&
+        'lowercase'} bg-input border-border border rounded-lg py-4 px-6 text-2xl shadow-sm focus:ring-2 transition"
       bind:value={slug}
     />
     {#if slug}
@@ -32,9 +34,7 @@
     >
       {#await fetch(`/api/check-slug/${debounced.current.trim()}`).then( (res) => res.json() )}
         <div class="flex items-center justify-center py-4">
-          <div
-            class="animate-spin rounded-full h-10 w-10 border-b-2 border-ctp-rosewater"
-          ></div>
+          <div class="animate-spin rounded-full h-10 w-10 border-b-2"></div>
           <p class="text-xl ml-4">Checking availability...</p>
         </div>
       {:then data}
