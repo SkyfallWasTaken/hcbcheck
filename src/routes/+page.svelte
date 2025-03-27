@@ -9,6 +9,26 @@
   );
 
   let inputEl: HTMLInputElement;
+
+  let data: { valid: boolean } | null = $state(null);
+  let loading = $state(false);
+  async function check() {
+    loading = true;
+    data = await fetch(`/api/check-slug/${debounced.current.trim()}`).then(
+      (res) => res.json()
+    );
+    loading = false;
+  }
+
+  let cardColor = $derived.by(() => {
+    if (data?.valid) {
+      return "bg-green-500";
+    } else if (loading) {
+      return "bg-gray-200";
+    } else {
+      return "bg-red-500";
+    }
+  });
 </script>
 
 <div class="max-w-2xl mx-auto py-10 px-4">
@@ -39,16 +59,16 @@
 
   {#if debounced.current.trim() !== ""}
     <div
-      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm"
+      class="py-6 px-8 rounded-lg border-border border w-full transition-all duration-300 shadow-sm {cardColor}"
     >
-      {#await fetch(`/api/check-slug/${debounced.current.trim()}`).then( (res) => res.json() )}
+      {#await check()}
         <div class="flex items-center justify-center py-4">
           <div class="animate-spin rounded-full h-10 w-10 border-b-2"></div>
           <p class="text-xl ml-4">Checking availability...</p>
         </div>
-      {:then data}
+      {:then}
         <div class="text-center">
-          {#if data.valid}
+          {#if data?.valid}
             <div class="flex items-center justify-center mb-2">
               <svg
                 class="w-8 h-8 text-green-500 mr-2"
@@ -63,7 +83,7 @@
                   d="M5 13l4 4L19 7"
                 ></path>
               </svg>
-              <p class="text-2xl font-semibold text-green-500">
+              <p class="text-2xl font-semibold text-background">
                 This name is available!
               </p>
             </div>
@@ -91,7 +111,7 @@
             </div>
             <a
               href={`https://hcb.hackclub.com/${debounced.current}`}
-              class="inline-block mt-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md transition-colors"
+              class="inline-block mt-2 px-4 py-2 bg-primary hover:bg-primary/80 text-gray-800 rounded-md shadow-sm transition"
               target="_blank"
               rel="noopener noreferrer"
             >
