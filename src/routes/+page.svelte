@@ -29,7 +29,7 @@
     />
     {#if slug}
       <button
-        class="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+        class="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
         onclick={() => (slug = "")}
       >
         ✕
