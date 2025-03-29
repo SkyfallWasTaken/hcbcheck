@@ -5,7 +5,7 @@
 
   const REGEX = /[^A-Za-z0-9-]/g;
   const debounced = new Debounced(
-    () => slug.toLowerCase().replace(REGEX, ""),
+    () => slug.toLowerCase().replaceAll(" ", "-").replace(REGEX, ""),
     500
   );
 
@@ -33,7 +33,8 @@
         'lowercase'} bg-input border-border border rounded-lg py-4 px-6 text-2xl shadow-sm focus:ring-2 transition"
       bind:value={slug}
       bind:this={inputEl}
-      oninput={() => (inputEl.value = inputEl.value.replace(REGEX, ""))}
+      oninput={() =>
+        (inputEl.value = inputEl.value.replaceAll(" ", "-").replace(REGEX, ""))}
     />
     {#if slug}
       <button
