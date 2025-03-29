@@ -9,7 +9,7 @@ function getGitCommitHash() {
 
 function getGitCommitLink() {
   const commitHash = getGitCommitHash();
-  return `https://github.com/SkyfallWasTaken/hcb-org-checker/commit/${commitHash}`;
+  return `https://github.com/SkyfallWasTaken/hcbcheck/commit/${commitHash}`;
   //   The code below is commented out because it's insecure and leaks GitHub access tokens.
   //   const repoUrl = execSync("git config --get remote.origin.url")
   //     .toString()
